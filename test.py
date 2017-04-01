@@ -36,12 +36,17 @@ def flash_winner(winner, altcolor):
         if board[i][j]['bg'] == winner:
             board[i][j]['bg'] = altcolor
     root.after(250, flash_winner, altcolor, winner)
-def select(e,i,j):
-    board[i][j]['bg'] = player
+    
+def play(e,i,j):
+    global player
+    board[i][j]['bg'] = currentplayer
+    player = other[player]
+    
+
 root = tk.Tk()
 for i, j in IT.product(range(rows), range(cols)):
     board[i][j] = L = tk.Label(root, text='   ', bg='grey')
     L.grid(row=i, column=j, padx=3, pady=3)
-    L.bind('<Button-1>', lambda e, i=i, j=j: select(e, i, j))
+    L.bind('<Button-1>', lambda e, i=i, j=j: play(e, i, j))
 
 root.mainloop()
