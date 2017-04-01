@@ -39,8 +39,9 @@ def flash_winner(winner, altcolor):
     
 def play(e,i,j):
     global player
-    board[i][j]['bg'] = currentplayer
+    board[i][j]['bg'] = player
     player = other[player]
+    print('Now it is ',player,'\'s turn')
     
 
 root = tk.Tk()
