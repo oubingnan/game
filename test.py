@@ -2,6 +2,7 @@ import tkinter as tk
 import itertools as IT
 import collections
 
+
 cols, rows =  15 , 15
 board = [[None] * cols for _ in range(rows)]    
 other = {'green': 'red', 'red': 'green'}
@@ -41,7 +42,7 @@ def play(e,i,j):
     global player
     board[i][j]['bg'] = player
     player = other[player]
-    print('Now it is ',player,'\'s turn')
+    tk.messagebox.showinfo('Information',player+'\'s turn next')
     
 
 root = tk.Tk()
