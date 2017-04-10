@@ -1,12 +1,8 @@
-from itertools import groupby, product
-from functools import reduce
-from resolve import *
-from part import *
-from game import Game
 import tkinter as tk
+from itertools import product
 from tkinter import messagebox
 
-import gameboard
+from game import Game
 
 '''
 if __name__ == "__main__":
@@ -21,27 +17,30 @@ if __name__ == "__main__":
 
 
 cols, rows=15,15
-board= [[None]* cols for _   in range(rows)]
+board= [[None]* cols for _ in range(rows)]
 other= {'green': 'red',   'red':       'green'}
 
 player='red'
 
 
 def play(e, i, j):
-    global player
-    board[i][j]['bg'] = player
-    game.accept((i,j))
-    if (game.black.win()):
-        tk.messagebox.showinfo('Information', player+' win')
-        exit()
-    player = other[player]
-    togo = game.response()
-    board[togo[0]][togo[1]]['bg'] = player
-    if (game.white.win()):
-        tk.messagebox.showinfo('Information', player+' win')
-        exit()
-    player = other[player]
-    tk.messagebox.showinfo('Information', 'Now it is ' + player + '\'s turn')
+    if (game.invalidmove((i,j))):
+        tk.messagebox.showinfo('Invalid Move', 'Invalid Move '+str((i, j)))
+    else:
+        global player
+        board[i][j]['bg'] = player
+        game.accept((i,j))
+        if (game.black.win()):
+            tk.messagebox.showinfo('Information', player+' win')
+            exit()
+        player = other[player]
+        togo = game.response()
+        board[togo[0]][togo[1]]['bg'] = player
+        if (game.white.win()):
+            tk.messagebox.showinfo('Information', player+' win')
+            exit()
+        player = other[player]
+        tk.messagebox.showinfo('Information', 'Now it is ' + player + '\'s turn')
 root  = tk.Tk()
 game = Game()
 for i, j in product(range(rows),range(cols)):
