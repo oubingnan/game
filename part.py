@@ -4,11 +4,11 @@ from functools import reduce
 
 class Line:
     def __init__(self, points):
-        self.available = points
+        self.available = points[:]
         self.occupied = []
 
     def update(self, point):
-        if point in self.available[:]:
+        if point in self.available:
             self.available.remove(point)
             self.occupied.append(point)
 

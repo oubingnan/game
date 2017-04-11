@@ -20,14 +20,16 @@ cols, rows=15,15
 board= [[None]* cols for _ in range(rows)]
 other= {'green': 'red',   'red':       'green'}
 
-player='red'
-
+player ='red'
+game = Game()
 
 def play(e, i, j):
+    global player
+    global game
     if (game.invalidmove((i,j))):
         tk.messagebox.showinfo('Invalid Move', 'Invalid Move '+str((i, j)))
     else:
-        global player
+
         board[i][j]['bg'] = player
         game.accept((i,j))
         if (game.black.win()):
@@ -41,10 +43,10 @@ def play(e, i, j):
             exit()
         player = other[player]
         tk.messagebox.showinfo('Information', 'Now it is ' + player + '\'s turn')
-root  = tk.Tk()
-game = Game()
+root = tk.Tk()
+
 for i, j in product(range(rows),range(cols)):
-    board[i][j] = L  = tk.Label(root, text='   ',  bg = 'grey')
+    board[i][j] = L  = tk.Label(root, text='  ',  bg = 'grey')
     L.grid(row=i, column=j,padx=3, pady=3)
     L.bind('<Button-1>',lambda e,i=i, j=j: play(e, i, j))
 root.mainloop()
